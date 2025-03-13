@@ -1,0 +1,7 @@
+name = "timerx-website"
+
+compatibility_date = "2025-03-13"
+compatibility_flags = ["nodejs_compact"]
+
+main = ".app/page.js"
+assets = { directory = ".worker-next/assets", binding = "ASSETS"}
