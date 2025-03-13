@@ -1,7 +1,7 @@
 name = "timerx-website"
 
 compatibility_date = "2025-03-13"
-compatibility_flags = ["nodejs_compact"]
+compatibility_flags = ["nodejs_compat"]
 
-main = ".app/page.js"
-assets = { directory = ".worker-next/assets", binding = "ASSETS"}
+main = "./.next/standalone/server.js" # Use Next.js standalone mode for Cloudflare
+assets = { directory = ".next/static", binding = "ASSETS" }
