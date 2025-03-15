@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  reactStrictMode: true,
-  experimental: {
-    outputFileTracingRoot: __dirname,
-  },
+  output: 'export', // Ensures static export for GitHub Pages
+  basePath: '/timerx-website', // Replace with your GitHub repo name
 };
 
 module.exports = nextConfig;
