@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dev:worker": "wrangler dev --port 8771",
-    "preview:worker": "npm run dev:worker",
-    "deploy:worker": "wrangler deploy"
+    "export": "next build && next export"
   },
   "dependencies": {
     "next": "^15.2.2",
