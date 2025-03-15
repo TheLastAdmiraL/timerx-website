@@ -1,9 +1,10 @@
-// @ts-check
- 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
-}
- 
-module.exports = nextConfig
+  experimental: {
+    outputFileTracingRoot: __dirname,
+  },
+};
+
+module.exports = nextConfig;
