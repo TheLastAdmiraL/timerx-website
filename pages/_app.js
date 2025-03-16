@@ -1,8 +1,15 @@
-// pages/_app.js
-import '../pages/globals.css'; // Import your global CSS here
+import './globals.css';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Navbar />
+      <Component {...pageProps} />
+      <Footer />
+    </>
+  );
 }
 
 export default MyApp;
