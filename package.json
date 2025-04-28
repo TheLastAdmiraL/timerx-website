@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "build": "next build",
-    "deploy": "next build && gh-pages -d out"
+    "predeploy": "next build",
+    "deploy": "node deploy.js"
   },
   "dependencies": {
     "next": "^15.2.2",
