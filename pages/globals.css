@@ -19,3 +19,26 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html, body {
+  background-image: url("/images/bg-desktop.png");
+  background-repeat: repeat;
+  background-size: cover;
+}
+
+html:has(body[data-legal-page="true"]),
+body[data-legal-page="true"] {
+  background-image: none;
+}
+
+/* Mobile override */
+@media (max-width: 640px) {
+  html, body {
+    background-image: url("/images/bg-mobile.png");
+  }
+
+  html:has(body[data-legal-page="true"]),
+  body[data-legal-page="true"] {
+    background-image: none;
+  }
+}
