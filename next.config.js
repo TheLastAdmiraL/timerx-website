@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
+const repoName = 'timerx-website';
+
 const nextConfig = {
   output: 'export', // Enables static site export
-  assetPrefix: '/', // Ensures correct asset paths for GitHub Pages
+  basePath: `/${repoName}`, // Serves pages from the GitHub Pages project path
+  assetPrefix: `/${repoName}/`, // Ensures static assets resolve on GitHub Pages
   images: {
     unoptimized: true, // Disable image optimization for static export
   },
