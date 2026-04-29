@@ -29,6 +29,7 @@ export default function Navbar() {
           { href: "/", label: "Home" },
           { href: "/journey", label: "Our Journey" },
           { href: "/download", label: "Download TimerX" },
+          { href: "/help", label: "Help & How-tos" },
           { href: "/contact", label: "Contact Us" },
         ].map((link, index) => (
           <Link

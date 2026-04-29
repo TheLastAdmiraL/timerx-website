@@ -10,11 +10,12 @@ export default function HeroBackground() {
         className="w-full h-full"
       >
         <defs>
-          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="oooscillate-grad">
-            <stop stopColor="hsl(118, 100%, 50%)" stopOpacity="1" offset="0%"></stop>
-            <stop stopColor="hsl(61, 91%, 55%)" stopOpacity="1" offset="100%"></stop>
-          </linearGradient>
-        </defs>
+  <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="oooscillate-grad">
+    <stop stopColor="hsl(210, 100%, 50%)" stopOpacity="1" offset="0%"></stop>
+    <stop stopColor="hsl(220, 90%, 60%)" stopOpacity="1" offset="100%"></stop>
+  </linearGradient>
+</defs>
+
         <g strokeWidth="2" stroke="url(#oooscillate-grad)" fill="none" strokeLinecap="round">
           <path d="M 0 560 Q 600 -100 1200 400 Q 1800 900 2400 560" opacity="0.05"></path>
           <path d="M 0 532 Q 600 -100 1200 400 Q 1800 900 2400 532" opacity="0.10"></path>

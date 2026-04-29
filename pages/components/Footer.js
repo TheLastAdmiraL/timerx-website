@@ -27,7 +27,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white px-6 py-12 mt-12 text-sm md:text-base">
+    <footer className="bg-gray-900 text-white px-6 py-12 mt-0 text-sm md:text-base">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         
         <div className="flex flex-col gap-8">
