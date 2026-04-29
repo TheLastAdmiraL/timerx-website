@@ -4,20 +4,20 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="bg-black text-light relative">
+    <div className="text-light relative">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col md:flex-row items-center px-6 py-10 overflow-hidden">
+      <section className="bg-black relative min-h-screen flex flex-col md:flex-row items-center px-6 pt-10 pb-0 md:py-10 overflow-hidden">
         {/* Background SVG for Desktop */}
-        <div className="hidden md:block absolute inset-0 -z-0">
+        <div className="hidden md:block absolute inset-0 -z-10">
           <HeroBackground />
         </div>
 
-        {/* Background SVG for Mobile (only behind TimerX text) */}
+        {/* Mobile Hero (only on <md): centered text */}
         <div className="block md:hidden relative w-full">
           <div className="absolute inset-0 -z-10">
             <HeroBackground />
           </div>
-          <div className="relative z-10 px-6 py-10">
+          <div className="relative z-10 px-6 py-10 text-center">
             <h1 className="text-5xl font-bold text-secondary">TimerX</h1>
             <p className="mt-4 text-2xl">
               Your ultimate tool to control <br />
@@ -26,7 +26,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* TimerX Text Column for Desktop */}
+        {/* Desktop Text Column */}
         <div className="hidden md:flex flex-1 justify-start pl-56 relative z-20">
           <div>
             <h1 className="text-5xl font-bold text-neon_green">TimerX</h1>
@@ -34,8 +34,7 @@ export default function Home() {
               Your ultimate tool to control <br />
               screen time and boost productivity.
             </p>
-            <br />
-            <p className="mt-2 text-base text-light/80 leading-relaxed max-w-md">
+            <p className="mt-6 text-base text-light/80 leading-relaxed max-w-md">
               TimerX isn&apos;t just another screen time app — it&apos;s your digital boundary setter.
               Designed for people who want focus without the stress of constant distractions.
               Set usage limits, delay addictive app launches, and stay present in your day.
@@ -50,20 +49,20 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mockup Image */}
-        <div className="w-full md:flex-1 flex items-center justify-end pr-36 mt-8 md:mt-0">
+        {/* Mockup Image (mobile: centered, desktop: right) */}
+        <div className="w-full md:flex-1 flex items-center justify-center md:justify-end pr-0 md:pr-24 mt-8 md:mt-0">
           <Image
-            src="/phone_mockups_for_website.png"
+            src="/new-hero-image.png"
             alt="TimerX App Mockups"
-            width={700}
-            height={700}
-            className="w-full max-w-[600px] md:max-w-[700px] h-auto z-10 rounded-md"
+            width={1130}
+            height={1536}
+            className="relative z-10 w-[320px] sm:w-[380px] md:w-[540px] lg:w-[620px] xl:w-[680px] h-auto max-w-none rounded-md"
           />
         </div>
       </section>
 
       {/* Visual Divider */}
-      <div className="w-full border-t border-secondary my-8"></div>
+      <div className="w-full border-t border-secondary"></div>
 
       {/* Main Features Section */}
       <section className="py-16 px-6">
@@ -101,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Reviews / Testimonials Section */}
+      {/* Testimonials */}
       <section className="py-16 px-6 bg-gray-900">
         <h2 className="text-4xl font-bold text-center mb-10 text-neon_green">
           What Our Users Say
@@ -137,7 +136,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why You Should Use TimerX Section */}
+      {/* Why You Should Use TimerX */}
       <section className="py-16 px-6">
         <h2 className="text-4xl font-bold text-center mb-4 text-neon_green">
           Why You Should Use TimerX
