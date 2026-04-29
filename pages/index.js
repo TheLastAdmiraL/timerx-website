@@ -8,13 +8,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="bg-black relative min-h-screen flex flex-col md:flex-row items-center px-6 pt-10 pb-0 md:py-10 overflow-hidden">
         {/* Background SVG for Desktop */}
-        <div className="hidden md:block absolute inset-0 -z-10">
+        <div className="hidden md:block absolute inset-0 z-0">
           <HeroBackground />
         </div>
 
         {/* Mobile Hero (only on <md): centered text */}
         <div className="block md:hidden relative w-full">
-          <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 z-0">
             <HeroBackground />
           </div>
           <div className="relative z-10 px-6 py-10 text-center">
