@@ -1,4 +1,44 @@
-import Head from "next/head";
+import Head from 'next/head';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ArrowLeft } from 'lucide-react';
+
+const sections = [
+  {
+    title: 'Information We Collect',
+    body: `TimerX does not collect personally identifiable information such as your name, email, or contact details unless you voluntarily provide them through our contact page.
+
+We may collect anonymous usage statistics — amount of time spent in the app, features used, and crash reports — to improve TimerX. Basic device information (model, OS version, language settings) may also be collected to ensure compatibility.`,
+  },
+  {
+    title: 'How We Use Your Information',
+    body: `We use collected data to monitor app performance and user engagement, fix bugs and improve stability, communicate important updates if you have voluntarily subscribed, and comply with legal obligations if necessary.`,
+  },
+  {
+    title: 'Accessibility Service',
+    body: `TimerX requires Android's Accessibility Service to detect which app is in the foreground and display overlays at the right time. This permission is used only for that purpose. We do not read screen content, keystrokes, passwords, messages, or any personal data through this permission.`,
+  },
+  {
+    title: 'Data Protection and Security',
+    body: `TimerX uses industry-standard security practices to protect your data. All analytics data is anonymized and secured. We do not sell, rent, or trade user information to third parties.`,
+  },
+  {
+    title: 'Third-Party Services',
+    body: `TimerX may use third-party services like Google Analytics for anonymous usage tracking. These services are bound by their own privacy policies and terms.`,
+  },
+  {
+    title: 'User Control',
+    body: `You have full control over your use of TimerX. You can uninstall the app at any time. You can also revoke Accessibility Service permission in your Android settings at any time.`,
+  },
+  {
+    title: 'Changes to This Policy',
+    body: `TimerX may update this privacy policy from time to time. We encourage users to review this page periodically. Changes are effective immediately upon posting.`,
+  },
+  {
+    title: 'Contact Us',
+    body: `If you have questions about this Privacy Policy, contact us through the TimerX Contact page.`,
+  },
+];
 
 export default function PrivacyPolicy() {
   return (
@@ -7,84 +47,71 @@ export default function PrivacyPolicy() {
         <title>Privacy Policy | TimerX</title>
       </Head>
 
-      <main className="min-h-screen bg-slate-100 px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl rounded-2xl bg-white p-6 text-slate-900 shadow-lg sm:p-8">
-          <h1 className="mb-6 text-4xl font-bold">Privacy Policy for TimerX</h1>
+      <div className="bg-tx-bg text-tx-text min-h-screen pt-28 pb-20 px-6 md:px-12">
+        <div className="max-w-3xl mx-auto">
 
-          <p className="mb-4">
-            At TimerX, your privacy is extremely important to us. This policy
-            outlines how we collect, use, and safeguard your personal
-            information when you use our app and services.
-          </p>
+          {/* Back link */}
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm text-tx-muted hover:text-tx-brand transition-colors mb-10"
+          >
+            <ArrowLeft size={14} /> Home
+          </Link>
 
-          <h2 className="mb-2 mt-6 text-2xl font-semibold">
-            Information We Collect
-          </h2>
-          <p className="mb-4">
-            - Personal Information: TimerX does not collect personal
-            identifiable information like name, email, or contact details
-            unless voluntarily provided through our contact page.
-            <br />- Usage Data: We may collect anonymous usage statistics, such
-            as the amount of time spent on the app, features used, and crash
-            reports to improve TimerX.
-            <br />- Device Information: Basic information such as device model,
-            operating system version, and language settings may be collected to
-            ensure compatibility and improve user experience.
-          </p>
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-12"
+          >
+            {/* Teal accent line */}
+            <div
+              className="w-12 h-1 rounded-full mb-6"
+              style={{ background: 'oklch(0.65 0.14 195)' }}
+            />
+            <h1 className="font-display text-4xl md:text-5xl font-800 text-tx-text mb-4" style={{ fontWeight: 800 }}>
+              Privacy Policy
+            </h1>
+            <p className="text-tx-muted">
+              At TimerX, your privacy is extremely important to us.
+            </p>
+          </motion.div>
 
-          <h2 className="mb-2 mt-6 text-2xl font-semibold">
-            How We Use Your Information
-          </h2>
-          <p className="mb-4">
-            - To monitor app performance and user engagement.
-            <br />- To fix bugs, improve stability, and enhance the TimerX
-            experience.
-            <br />- To communicate important updates, if voluntarily subscribed.
-            <br />- To comply with legal obligations if necessary.
-          </p>
+          {/* Sections */}
+          <div className="space-y-10">
+            {sections.map((s, i) => (
+              <motion.section
+                key={s.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.04, duration: 0.45 }}
+              >
+                <h2 className="font-display text-xl font-700 text-tx-text mb-3" style={{ fontWeight: 700 }}>
+                  {s.title}
+                </h2>
+                <p className="text-tx-muted text-sm leading-relaxed whitespace-pre-line">
+                  {s.body}
+                </p>
+              </motion.section>
+            ))}
+          </div>
 
-          <h2 className="mb-2 mt-6 text-2xl font-semibold">
-            Data Protection and Security
-          </h2>
-          <p className="mb-4">
-            TimerX uses industry-standard security practices to protect your
-            data. All analytics data collected is anonymized and secured. We do
-            not sell, rent, or trade user information to third parties.
-          </p>
-
-          <h2 className="mb-2 mt-6 text-2xl font-semibold">
-            Third-Party Services
-          </h2>
-          <p className="mb-4">
-            TimerX may use third-party services like Google Analytics for
-            anonymous usage tracking. These third parties are bound by their own
-            privacy policies and terms.
-          </p>
-
-          <h2 className="mb-2 mt-6 text-2xl font-semibold">User Control</h2>
-          <p className="mb-4">
-            You have full control over your usage of TimerX. You can choose to
-            uninstall the app at any time if you do not agree with our privacy
-            practices.
-          </p>
-
-          <h2 className="mb-2 mt-6 text-2xl font-semibold">
-            Changes to This Policy
-          </h2>
-          <p className="mb-4">
-            TimerX may update this privacy policy from time to time. We
-            encourage users to review this page periodically. Changes are
-            effective immediately upon posting.
-          </p>
-
-          <h2 className="mb-2 mt-6 text-2xl font-semibold">Contact Us</h2>
-          <p className="mb-4">
-            If you have any questions about this Privacy Policy, feel free to
-            contact us through the TimerX Contact page.
-          </p>
+          {/* Contact link */}
+          <div
+            className="mt-14 pt-8"
+            style={{ borderTop: '1px solid oklch(0.20 0.010 195)' }}
+          >
+            <p className="text-tx-muted text-sm">
+              Questions?{' '}
+              <Link href="/contact" className="text-tx-brand hover:opacity-80 transition-opacity underline">
+                Contact us
+              </Link>
+            </p>
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
-  

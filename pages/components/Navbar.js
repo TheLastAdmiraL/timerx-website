@@ -1,46 +1,118 @@
-import { useState } from "react";
-import Link from "next/link";
+'use client';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+
+const links = [
+  { href: '/',          label: 'Home'          },
+  { href: '/journey',   label: 'Our Journey'   },
+  { href: '/download',  label: 'Download'      },
+  { href: '/help',      label: 'Help'          },
+  { href: '/contact',   label: 'Contact'       },
+];
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open,      setOpen]      = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <nav className="bg-secondary p-4 flex flex-col md:flex-row justify-between items-center shadow-md">
-      {/* Top Section (Logo + Hamburger) */}
-      <div className="flex justify-between items-center w-full md:w-auto">
-        <h1 className="text-2xl font-bold text-black pl-6">TimerX</h1>
-
-        {/* Hamburger Button */}
-        <button
-          className="md:hidden text-4xl text-black pr-6 focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
+    <header
+      className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+      style={{
+        background: scrolled
+          ? 'oklch(0.09 0.008 195 / 0.85)'
+          : 'oklch(0.09 0.008 195 / 0.0)',
+        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+        borderBottom: scrolled ? '1px solid oklch(0.20 0.010 195)' : '1px solid transparent',
+      }}
+    >
+      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="font-display font-800 text-xl tracking-tight text-tx-text hover:text-tx-brand transition-colors duration-200"
+          style={{ fontWeight: 800 }}
         >
-          ☰
-        </button>
-      </div>
+          Timer<span className="text-tx-brand">X</span>
+        </Link>
 
-      {/* Links Section */}
-      <div
-        className={`flex flex-col md:flex-row items-center w-full md:w-auto mt-4 md:mt-0 ${
-          menuOpen ? "block" : "hidden md:flex"
-        } gap-y-4 md:gap-x-6`} /* Added spacing between items */
-      >
-        {[
-          { href: "/", label: "Home" },
-          { href: "/journey", label: "Our Journey" },
-          { href: "/download", label: "Download TimerX" },
-          { href: "/help", label: "Help & How-tos" },
-          { href: "/contact", label: "Contact Us" },
-        ].map((link, index) => (
-          <Link
-            key={index}
-            href={link.href}
-            className="w-full md:w-auto text-base md:text-lg text-black text-center px-4 py-2 border-b md:border-0 border-black/20 hover:bg-nav_bar_hover hover:scale-105 hover:rounded-lg transition-all duration-300" // Increased radius to rounded-lg
+        {/* Desktop links */}
+        <ul className="hidden md:flex items-center gap-1">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="px-4 py-2 rounded-lg text-sm font-medium text-tx-muted hover:text-tx-text hover:bg-tx-faint transition-all duration-200"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Desktop CTA */}
+        <Link
+          href="/download"
+          className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-tx-brand text-black hover:opacity-90 transition-all duration-200 animate-glow-pulse"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          Download
+        </Link>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden p-2 rounded-lg text-tx-muted hover:text-tx-text hover:bg-tx-faint transition-all"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </nav>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+            className="md:hidden overflow-hidden"
+            style={{
+              background: 'oklch(0.09 0.008 195 / 0.96)',
+              borderTop: '1px solid oklch(0.20 0.010 195)',
+            }}
           >
-            {link.label}
-          </Link>
-        ))}
-      </div>
-    </nav>
+            <div className="px-6 py-4 flex flex-col gap-1">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="px-3 py-3 rounded-lg text-base font-medium text-tx-muted hover:text-tx-text hover:bg-tx-faint transition-all duration-200"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="/download"
+                onClick={() => setOpen(false)}
+                className="mt-3 px-4 py-3 rounded-lg text-sm font-semibold bg-tx-brand text-black text-center transition-all duration-200"
+              >
+                Download TimerX
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

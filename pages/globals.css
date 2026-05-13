@@ -3,42 +3,72 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --tx-bg:         oklch(0.09 0.008 195);
+  --tx-surface:    oklch(0.13 0.008 195);
+  --tx-border:     oklch(0.20 0.010 195);
+  --tx-brand:      oklch(0.65 0.14 195);
+  --tx-brand-dim:  oklch(0.45 0.10 195);
+  --tx-text:       oklch(0.94 0.005 195);
+  --tx-muted:      oklch(0.55 0.005 195);
+  --tx-faint:      oklch(0.28 0.008 195);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+html {
+  scroll-behavior: smooth;
 }
 
 html, body {
-  background-image: url("/images/bg-desktop.png");
-  background-repeat: repeat;
-  background-size: cover;
+  background-color: var(--tx-bg);
+  color: var(--tx-text);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Remove old tiled background images */
+  background-image: none !important;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--tx-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--tx-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tx-brand-dim);
+}
+
+/* Selection */
+::selection {
+  background: oklch(0.65 0.14 195 / 0.25);
+  color: var(--tx-text);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--tx-brand);
+  outline-offset: 3px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Legal pages: remove any bg images (kept for compat) */
 html:has(body[data-legal-page="true"]),
 body[data-legal-page="true"] {
-  background-image: none;
-}
-
-/* Mobile override */
-@media (max-width: 640px) {
-  html, body {
-    background-image: url("/images/bg-mobile.png");
-  }
-
-  html:has(body[data-legal-page="true"]),
-  body[data-legal-page="true"] {
-    background-image: none;
-  }
+  background-image: none !important;
 }

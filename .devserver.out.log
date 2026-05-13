@@ -1,0 +1,13 @@
+
+> timerx-website@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.2.2 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.29.180:3000
+
+ ✓ Starting...
+ ✓ Ready in 1661ms
+ ○ Compiling / ...
+ ✓ Compiled / in 2.4s
+ GET / 200 in 3093ms

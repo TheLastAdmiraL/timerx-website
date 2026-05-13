@@ -1,186 +1,374 @@
-import HeroBackground from "./components/HeroBackground";
-import Image from "next/image";
-import Link from "next/link";
+import HeroBackground from './components/HeroBackground';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import {
+  Timer, BarChart2, ShieldCheck, Brain,
+  Clock, CheckCircle2, ArrowRight,
+} from 'lucide-react';
 
+/* ─── animation helpers ──────────────────────────────── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 32, filter: 'blur(6px)' },
+  show:   { opacity: 1, y: 0,  filter: 'blur(0px)',
+    transition: { type: 'spring', stiffness: 80, damping: 18 } },
+};
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
+
+/* ─── data ───────────────────────────────────────────── */
+const features = [
+  {
+    icon: Brain,
+    title: 'Ask AI Reason Unlock',
+    desc: 'When your timer runs out, TimerX asks why you want to open the app. A good reason earns you more time. No good reason? You get a nudge to close it.',
+    highlight: true,
+    image: '/images/reason-unlock-screen.png',
+  },
+  {
+    icon: Timer,
+    title: 'Pre-open Wait Screen',
+    desc: 'Before a monitored app launches, a brief pause gives your brain a moment to reconsider. 5 seconds can break a habit loop.',
+    highlight: false,
+    image: null,
+  },
+  {
+    icon: BarChart2,
+    title: 'Usage Analytics',
+    desc: 'See daily and weekly breakdowns of every app you track. Spot patterns, measure improvement, stay honest with yourself.',
+    highlight: false,
+    image: null,
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Privacy First',
+    desc: 'Everything stays on your phone. We use Accessibility Service only to show overlays — we never read screen content or personal data.',
+    highlight: false,
+    image: null,
+  },
+];
+
+const steps = [
+  { num: '01', icon: Clock,        title: 'Pick your apps',      desc: 'Choose the apps you want to limit — social media, games, anything.' },
+  { num: '02', icon: Timer,        title: 'Set your limits',      desc: 'Define daily time budgets and optional wait screens per app.' },
+  { num: '03', icon: CheckCircle2, title: 'TimerX does the rest', desc: 'When limits are hit, the app pauses, asks your reason, and you decide.' },
+];
+
+/* ─── component ─────────────────────────────────────── */
 export default function Home() {
   return (
-    <div className="text-light relative">
-      {/* Hero Section */}
-      <section className="bg-black relative min-h-screen flex flex-col md:flex-row items-center px-6 pt-10 pb-0 md:py-10 overflow-hidden">
-        {/* Background SVG for Desktop */}
-        <div className="hidden md:block absolute inset-0 z-0">
-          <HeroBackground />
-        </div>
+    <div className="bg-tx-bg text-tx-text">
 
-        {/* Mobile Hero (only on <md): centered text */}
-        <div className="block md:hidden relative w-full">
-          <div className="absolute inset-0 z-0">
-            <HeroBackground />
-          </div>
-          <div className="relative z-10 px-6 py-10 text-center">
-            <h1 className="text-5xl font-bold text-secondary">TimerX</h1>
-            <p className="mt-4 text-2xl">
-              Your ultimate tool to control <br />
-              screen time and boost productivity.
-            </p>
-          </div>
-        </div>
+      {/* ── HERO ── */}
+      <section className="relative min-h-screen flex flex-col md:flex-row items-center pt-24 pb-16 px-6 md:px-12 overflow-hidden">
+        <HeroBackground />
 
-        {/* Desktop Text Column */}
-        <div className="hidden md:flex flex-1 justify-start pl-56 relative z-20">
-          <div>
-            <h1 className="text-5xl font-bold text-neon_green">TimerX</h1>
-            <p className="mt-4 text-2xl">
-              Your ultimate tool to control <br />
-              screen time and boost productivity.
-            </p>
-            <p className="mt-6 text-base text-light/80 leading-relaxed max-w-md">
-              TimerX isn&apos;t just another screen time app — it&apos;s your digital boundary setter.
-              Designed for people who want focus without the stress of constant distractions.
-              Set usage limits, delay addictive app launches, and stay present in your day.
-              Built with simplicity, privacy, and real productivity in mind.
-            </p>
+        {/* Left: text */}
+        <motion.div
+          className="relative z-10 flex-1 max-w-xl"
+          variants={stagger}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.p variants={fadeUp} className="text-tx-brand text-sm font-semibold tracking-widest uppercase mb-4">
+            Available on Android
+          </motion.p>
+          <motion.h1
+            variants={fadeUp}
+            className="font-display font-800 text-5xl md:text-6xl lg:text-7xl leading-tight tracking-tight text-tx-text"
+            style={{ fontWeight: 800, lineHeight: '1.05' }}
+          >
+            Your time<br />
+            <span className="text-tx-brand">back.</span>
+          </motion.h1>
+          <motion.p variants={fadeUp} className="mt-6 text-tx-muted text-lg leading-relaxed max-w-md">
+            TimerX slows down the apps you can&apos;t stop opening — so the rest of your day has room to breathe.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-3">
             <Link
               href="/download"
-              className="inline-block mt-8 bg-neon_green text-black px-6 py-3 rounded-md font-semibold hover:opacity-90 transition"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-black bg-tx-brand hover:opacity-90 transition-all duration-200 animate-glow-pulse font-display"
+              style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
             >
-              Download TimerX
+              Download Free
+              <ArrowRight size={16} />
             </Link>
-          </div>
-        </div>
+            <Link
+              href="/journey"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-medium text-tx-muted hover:text-tx-text transition-all duration-200"
+              style={{ border: '1px solid oklch(0.20 0.010 195)' }}
+            >
+              Our Story
+            </Link>
+          </motion.div>
+        </motion.div>
 
-        {/* Mockup Image (mobile: centered, desktop: right) */}
-        <div className="w-full md:flex-1 flex items-center justify-center md:justify-end pr-0 md:pr-24 mt-8 md:mt-0">
-          <Image
-            src="/new-hero-image.png"
-            alt="TimerX App Mockups"
-            width={1130}
-            height={1536}
-            className="relative z-10 w-[320px] sm:w-[380px] md:w-[540px] lg:w-[620px] xl:w-[680px] h-auto max-w-none rounded-md"
+        {/* Right: phone mockup */}
+        <motion.div
+          className="relative z-10 flex-1 flex items-center justify-center md:justify-end mt-14 md:mt-0"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Ambient glow behind phone */}
+          <div
+            className="absolute rounded-full"
+            style={{
+              width: '380px',
+              height: '380px',
+              background: 'radial-gradient(circle, rgba(6,182,212,0.18) 0%, transparent 65%)',
+              filter: 'blur(40px)',
+            }}
           />
+          <div className="animate-float relative">
+            <Image
+              src="/new-hero-image.png"
+              alt="TimerX app interface on Android"
+              width={1130}
+              height={1536}
+              className="relative z-10 w-[280px] sm:w-[320px] md:w-[400px] lg:w-[440px] h-auto"
+              priority
+            />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── FEATURES ── */}
+      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+          className="text-center mb-16"
+        >
+          <motion.p variants={fadeUp} className="text-tx-brand text-sm font-semibold tracking-widest uppercase mb-3">
+            What it does
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="font-display text-4xl md:text-5xl font-800 text-tx-text" style={{ fontWeight: 800 }}>
+            Built differently
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mt-4 text-tx-muted text-lg max-w-xl mx-auto">
+            Most screen-time apps just lock you out. TimerX makes you think.
+          </motion.p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ delay: i * 0.08 }}
+              className="group relative rounded-2xl p-6 overflow-hidden"
+              style={{
+                background: 'oklch(0.13 0.008 195)',
+                border: f.highlight
+                  ? '1px solid oklch(0.65 0.14 195 / 0.45)'
+                  : '1px solid oklch(0.20 0.010 195)',
+                transition: 'border-color 0.2s, box-shadow 0.2s',
+              }}
+              whileHover={{
+                borderColor: 'oklch(0.65 0.14 195 / 0.50)',
+                boxShadow: '0 0 36px rgba(6,182,212,0.15)',
+              }}
+            >
+              {f.highlight && (
+                <span
+                  className="absolute top-4 right-4 text-xs font-semibold px-2.5 py-1 rounded-full"
+                  style={{ background: 'oklch(0.65 0.14 195 / 0.15)', color: 'oklch(0.65 0.14 195)' }}
+                >
+                  New
+                </span>
+              )}
+
+              <div className="flex gap-5">
+                {/* Icon */}
+                <div
+                  className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
+                  style={{ background: 'oklch(0.65 0.14 195 / 0.12)' }}
+                >
+                  <f.icon size={20} className="text-tx-brand" />
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-display font-700 text-lg text-tx-text mb-2" style={{ fontWeight: 700 }}>
+                    {f.title}
+                  </h3>
+                  <p className="text-tx-muted text-sm leading-relaxed">
+                    {f.desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* Phone mockup for Reason Unlock */}
+              {f.image && (
+                <div className="mt-6 flex justify-center">
+                  <div
+                    className="relative rounded-3xl overflow-hidden shadow-xl"
+                    style={{
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)',
+                    }}
+                  >
+                    <Image
+                      src={f.image}
+                      alt="Reason Unlock screen"
+                      width={260}
+                      height={560}
+                      className="w-[200px] sm:w-[220px] h-auto"
+                    />
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Visual Divider */}
-      <div className="w-full border-t border-secondary"></div>
+      {/* ── HOW IT WORKS ── */}
+      <section
+        className="py-24 px-6 md:px-12"
+        style={{ background: 'oklch(0.11 0.008 195)' }}
+      >
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-80px' }}
+            className="text-center mb-16"
+          >
+            <motion.p variants={fadeUp} className="text-tx-brand text-sm font-semibold tracking-widest uppercase mb-3">
+              Three steps
+            </motion.p>
+            <motion.h2 variants={fadeUp} className="font-display text-4xl md:text-5xl font-800" style={{ fontWeight: 800 }}>
+              Simple to start
+            </motion.h2>
+          </motion.div>
 
-      {/* Main Features Section */}
-      <section className="py-16 px-6">
-        <h2 className="text-4xl font-bold text-center mb-10 text-neon_green">
-          Main Features
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex flex-col items-center">
-            <div className="text-6xl mb-4">🚀</div>
-            <h3 className="text-2xl font-bold mb-2 text-neon_green">
-              Fast Performance
-            </h3>
-            <p className="text-center">
-              Experience lightning fast performance with TimerX.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-6xl mb-4">📊</div>
-            <h3 className="text-2xl font-bold mb-2 text-neon_green">
-              Detailed Analytics
-            </h3>
-            <p className="text-center">
-              Get insights on your app usage and stay productive.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-6xl mb-4">🔒</div>
-            <h3 className="text-2xl font-bold mb-2 text-neon_green">
-              Secure
-            </h3>
-            <p className="text-center">
-              Your data is protected with advanced security measures.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {steps.map((s, i) => (
+              <motion.div
+                key={s.num}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex flex-col gap-4"
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    className="font-display text-4xl font-800 leading-none"
+                    style={{ color: 'oklch(0.65 0.14 195 / 0.30)', fontWeight: 800 }}
+                  >
+                    {s.num}
+                  </span>
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: 'oklch(0.65 0.14 195 / 0.12)' }}
+                  >
+                    <s.icon size={17} className="text-tx-brand" />
+                  </div>
+                </div>
+                <h3 className="font-display font-700 text-xl text-tx-text" style={{ fontWeight: 700 }}>
+                  {s.title}
+                </h3>
+                <p className="text-tx-muted text-sm leading-relaxed">
+                  {s.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 px-6 bg-gray-900">
-        <h2 className="text-4xl font-bold text-center mb-10 text-neon_green">
-          What Our Users Say
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-black p-6 rounded-md shadow-md border border-secondary">
-            <p className="italic">
-              &quot;TimerX transformed my daily routine and boosted my productivity!&quot;
-            </p>
-            <div className="flex justify-between items-center mt-4">
-              <p>⭐⭐⭐⭐⭐</p>
-              <p className="text-sm">- John Doe</p>
+      {/* ── TRUST / PERMISSION CALLOUT ── */}
+      <section className="py-20 px-6 md:px-12 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl p-8 md:p-10"
+          style={{
+            background: 'oklch(0.13 0.008 195)',
+            border: '1px solid oklch(0.20 0.010 195)',
+          }}
+        >
+          <div className="flex flex-col md:flex-row gap-6 items-start">
+            <div
+              className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+              style={{ background: 'oklch(0.65 0.14 195 / 0.12)' }}
+            >
+              <ShieldCheck size={22} className="text-tx-brand" />
+            </div>
+            <div>
+              <h3 className="font-display font-700 text-xl text-tx-text mb-3" style={{ fontWeight: 700 }}>
+                About the Accessibility permission
+              </h3>
+              <p className="text-tx-muted text-sm leading-relaxed mb-4">
+                TimerX needs Android&apos;s Accessibility Service to detect when you open a monitored app and show overlays at the right moment. It&apos;s the only way to do this without root access.
+              </p>
+              <ul className="space-y-2 text-sm">
+                {[
+                  { ok: false, text: "We don't read your screen content, passwords, or personal data" },
+                  { ok: false, text: "We don't collect or sell personal information" },
+                  { ok: true,  text: "We collect anonymous crash reports and feature usage to fix bugs" },
+                  { ok: true,  text: "All your app data and timers stay on your device" },
+                ].map((item) => (
+                  <li key={item.text} className="flex items-start gap-2.5">
+                    <span
+                      className="flex-shrink-0 mt-0.5 text-xs font-bold"
+                      style={{ color: item.ok ? 'oklch(0.65 0.14 195)' : 'oklch(0.72 0.18 25)' }}
+                    >
+                      {item.ok ? '✓' : '✕'}
+                    </span>
+                    <span className="text-tx-muted">{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/privacy-policy"
+                className="inline-flex items-center gap-1.5 mt-5 text-sm text-tx-brand hover:opacity-80 transition-opacity"
+              >
+                Read our full Privacy Policy <ArrowRight size={13} />
+              </Link>
             </div>
           </div>
-          <div className="bg-black p-6 rounded-md shadow-md border border-secondary">
-            <p className="italic">
-              &quot;An amazing tool for anyone looking to manage their screen time.&quot;
-            </p>
-            <div className="flex justify-between items-center mt-4">
-              <p>⭐⭐⭐⭐☆</p>
-              <p className="text-sm">- Jane Smith</p>
-            </div>
-          </div>
-          <div className="bg-black p-6 rounded-md shadow-md border border-secondary">
-            <p className="italic">
-              &quot;I highly recommend TimerX for a balanced digital life.&quot;
-            </p>
-            <div className="flex justify-between items-center mt-4">
-              <p>⭐⭐⭐⭐⭐</p>
-              <p className="text-sm">- Alex Johnson</p>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Why You Should Use TimerX */}
-      <section className="py-16 px-6">
-        <h2 className="text-4xl font-bold text-center mb-4 text-neon_green">
-          Why You Should Use TimerX
-        </h2>
-        <p className="text-center mb-10">
-          Enhance your productivity and reclaim your time.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-          <div className="flex flex-col items-center">
-            <div className="text-5xl mb-4">⏰</div>
-            <h3 className="font-bold mb-2 text-neon_green">Time Management</h3>
-            <p className="text-center text-sm">
-              Efficiently manage your screen time.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-5xl mb-4">📈</div>
-            <h3 className="font-bold mb-2 text-neon_green">Boost Productivity</h3>
-            <p className="text-center text-sm">
-              Increase productivity with smart tracking.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-5xl mb-4">🔒</div>
-            <h3 className="font-bold mb-2 text-neon_green">Enhanced Security</h3>
-            <p className="text-center text-sm">
-              Your data remains secure at all times.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-5xl mb-4">🎯</div>
-            <h3 className="font-bold mb-2 text-neon_green">Focus</h3>
-            <p className="text-center text-sm">
-              Minimize distractions and stay on track.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-5xl mb-4">💡</div>
-            <h3 className="font-bold mb-2 text-neon_green">Insightful Analytics</h3>
-            <p className="text-center text-sm">
-              Understand your habits with detailed insights.
-            </p>
-          </div>
-        </div>
+      {/* ── DOWNLOAD CTA ── */}
+      <section className="py-24 px-6 md:px-12 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mx-auto"
+        >
+          <h2 className="font-display text-4xl md:text-5xl font-800 text-tx-text mb-6" style={{ fontWeight: 800 }}>
+            Ready to take it back?
+          </h2>
+          <p className="text-tx-muted text-lg mb-10">
+            Free to download. No account required. Works on Android 8 and up.
+          </p>
+          <Link
+            href="https://play.google.com/store/apps/details?id=com.equinoxdev.timerx"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/images/google-play-badge.svg"
+              alt="Get it on Google Play"
+              width={200}
+              height={60}
+              className="mx-auto hover:opacity-90 transition-opacity"
+            />
+          </Link>
+        </motion.div>
       </section>
     </div>
   );

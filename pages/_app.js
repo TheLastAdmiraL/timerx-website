@@ -3,30 +3,29 @@ import './globals.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Script from 'next/script';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { Bricolage_Grotesque, Plus_Jakarta_Sans } from 'next/font/google';
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-body',
+  display: 'swap',
+});
 
 function MyApp({ Component, pageProps }) {
-  const router = useRouter();
-  const isLegalPage = router.pathname === '/privacy-policy';
-
-  useEffect(() => {
-    if (isLegalPage) {
-      document.body.dataset.legalPage = 'true';
-      return () => {
-        delete document.body.dataset.legalPage;
-      };
-    }
-
-    delete document.body.dataset.legalPage;
-    return undefined;
-  }, [isLegalPage]);
-
   return (
-    <>
-      {/* Global <head> settings */}
+    <div className={`${bricolage.variable} ${jakarta.variable}`}>
       <Head>
-        <title>TimerX</title>
+        <title>TimerX — Your time back.</title>
+        <meta name="description" content="TimerX helps you reclaim focus by setting app limits, wait screens, and reason-based unlocks. Available on Android." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
@@ -34,7 +33,6 @@ function MyApp({ Component, pageProps }) {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
 
-      {/* Google Analytics - gtag.js */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-1DB76MVBC4"
         strategy="afterInteractive"
@@ -52,11 +50,12 @@ function MyApp({ Component, pageProps }) {
         }}
       />
 
-      {/* Layout */}
       <Navbar />
-      <Component {...pageProps} />
+      <main>
+        <Component {...pageProps} />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

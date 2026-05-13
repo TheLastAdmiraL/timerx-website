@@ -1,160 +1,160 @@
-// pages/journey/index.js
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import Head from 'next/head';
+import { ArrowRight } from 'lucide-react';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 36, filter: 'blur(6px)' },
+  show:   { opacity: 1, y: 0,  filter: 'blur(0px)',
+    transition: { type: 'spring', stiffness: 70, damping: 18 } },
+};
+
+const chapters = [
+  {
+    image: '/images/quarantine.png',
+    alt: 'Quarantine era',
+    title: 'It started during quarantine',
+    body: 'When lockdown hit, we quickly realized our phones had become constant companions. Endless scrolling was the new normal — even a few minutes away from the feed felt impossible. We knew something had to change, but no existing tool spoke to why we were stuck in that loop.',
+  },
+  {
+    image: '/images/apps.png',
+    alt: 'Tried existing apps',
+    title: 'We tried everything',
+    body: 'From simple timers to full-blown app lockers, we tested them all — yet each one felt like a band-aid. They would freeze our screen or count down seconds, but offered no context about why we were really here. We craved a tool that didn\'t just say "stop," but helped us remember what to do instead.',
+    reverse: true,
+  },
+  {
+    image: '/images/idea.png',
+    alt: 'The idea spark',
+    title: 'Then came the idea',
+    body: 'One evening we asked: what if every enforced pause reminded us of our real goals? Instead of a blank lock screen, we could surface tasks, habits, and motivational prompts. That light-bulb moment sparked the core concept behind TimerX\'s unique productivity-first approach.',
+  },
+  {
+    image: '/images/dev.png',
+    alt: 'Building something better',
+    title: 'Building something better',
+    body: 'We sketched, prototyped, and iterated — combining code with user feedback at every step. Our wait-screen became a digital nudge, surfacing your tasks and habits precisely when you need it. Today, TimerX empowers you to reclaim your attention and focus on what truly matters.',
+    reverse: true,
+  },
+];
 
 export default function Journey() {
   return (
-    <div className="bg-black text-white">
-      {/* HERO (smaller height, tighter padding) */}
-      <section className="relative overflow-hidden">
-        {/* Separation under navbar */}
-        <div className="pointer-events-none absolute inset-x-0 -top-1 h-6 bg-gradient-to-b from-black to-transparent" />
+    <>
+      <Head>
+        <title>Our Journey | TimerX</title>
+        <meta name="description" content="From screen-time struggles to meaningful change — this is how TimerX came to life." />
+      </Head>
 
-        {/* Dark hero base */}
-        <div className="relative px-6 pt-16 pb-16 text-center">
-          {/* Cyan angled ribbon behind title */}
-          <div className="relative inline-block">
-            <div
-              className="absolute inset-0 -z-10 translate-y-1"
-              aria-hidden="true"
-              style={{
-                height: '2.75rem',
-                top: '50%',
-                transform: 'translateY(-50%) skewY(-4deg)',
-                background:
-                  'linear-gradient(90deg, rgba(6,182,212,0.95), rgba(6,182,212,0.75))',
-                boxShadow: '0 8px 30px -8px rgba(6,182,212,0.5)',
-                borderRadius: '8px',
-              }}
-            />
-            <h1 className="relative text-4xl md:text-5xl font-extrabold tracking-tight px-4">
-              Our Journey
-            </h1>
-          </div>
+      <div className="bg-tx-bg text-tx-text">
 
-          <p className="mt-4 text-lg max-w-2xl mx-auto text-white/80">
-            From screen-time struggles to meaningful change — this is how TimerX came to life.
-          </p>
-        </div>
+        {/* ── HERO ── */}
+        <section className="pt-32 pb-20 px-6 md:px-12 max-w-4xl mx-auto">
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+          >
+            <motion.p variants={fadeUp} className="text-tx-brand text-sm font-semibold tracking-widest uppercase mb-4">
+              Our story
+            </motion.p>
+            <motion.h1
+              variants={fadeUp}
+              className="font-display text-5xl md:text-6xl font-800 text-tx-text leading-tight mb-6"
+              style={{ fontWeight: 800 }}
+            >
+              From distraction<br />
+              <span className="text-tx-brand">to clarity.</span>
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-tx-muted text-xl leading-relaxed max-w-2xl">
+              Every product has a story. Ours began with small frustrations, late-night conversations, and the relentless urge to build something better.
+            </motion.p>
+          </motion.div>
+        </section>
 
-        <div className="h-px w-full bg-white/10" />
-      </section>
+        {/* ── TIMELINE ── */}
+        <section className="px-6 md:px-12 max-w-5xl mx-auto space-y-24 pb-24">
+          {chapters.map((ch, i) => (
+            <motion.div
+              key={ch.title}
+              initial={{ opacity: 0, y: 48, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ type: 'spring', stiffness: 60, damping: 18, delay: 0.05 }}
+              className={`flex flex-col ${ch.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-10 md:gap-16`}
+            >
+              {/* Image */}
+              <div className="flex-shrink-0 relative">
+                <div
+                  className="absolute inset-0 rounded-2xl"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(6,182,212,0.14) 0%, transparent 70%)',
+                    filter: 'blur(20px)',
+                    transform: 'scale(1.1)',
+                  }}
+                />
+                <div
+                  className="relative rounded-2xl overflow-hidden p-2"
+                  style={{
+                    background: 'oklch(0.13 0.008 195)',
+                    border: '1px solid oklch(0.20 0.010 195)',
+                  }}
+                >
+                  <Image
+                    src={ch.image}
+                    alt={ch.alt}
+                    width={180}
+                    height={180}
+                    className="w-[140px] sm:w-[160px] h-auto object-contain"
+                  />
+                </div>
+              </div>
 
-      {/* INTRO SECTION (new filler text) */}
-      <section className="px-6 py-12 md:py-14 max-w-3xl mx-auto text-center space-y-4">
-        <p className="text-lg text-white/80">
-          Every product has a story — ours began with small frustrations, late-night conversations,
-          and the relentless urge to build something better. We weren’t just chasing productivity,
-          we were searching for balance.
-        </p>
-        <p className="text-lg text-white/80">
-          What started as a passing thought slowly turned into sketches, notes, and experiments.
-          Before we knew it, our idea began taking shape into what you now know as TimerX.
-        </p>
-      </section>
+              {/* Text */}
+              <div className="flex-1">
+                <span
+                  className="font-display text-6xl font-800 leading-none block mb-3"
+                  style={{ color: 'oklch(0.65 0.14 195 / 0.18)', fontWeight: 800 }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h2 className="font-display text-2xl md:text-3xl font-700 text-tx-text mb-4" style={{ fontWeight: 700 }}>
+                  {ch.title}
+                </h2>
+                <p className="text-tx-muted text-lg leading-relaxed">
+                  {ch.body}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </section>
 
-      {/* TIMELINE */}
-      <div className="px-6 py-12 md:py-16 max-w-4xl mx-auto space-y-12">
-        {/* Step 1 */}
-        <div className="flex flex-col md:flex-row items-center gap-6">
-          <Image
-            src="/images/quarantine.png"
-            alt="Quarantine Era Cartoon"
-            width={160}
-            height={160}
-            className="rounded-xl shadow-lg flex-shrink-0 object-contain bg-white/5 p-2"
-          />
-          <div className="flex-1">
-            <h2 className="text-2xl font-semibold text-secondary">
-              It started during Quarantine
+        {/* ── CTA ── */}
+        <section className="py-20 px-6 text-center" style={{ background: 'oklch(0.11 0.008 195)' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl mx-auto"
+          >
+            <h2 className="font-display text-4xl md:text-5xl font-800 text-tx-text mb-4" style={{ fontWeight: 800 }}>
+              And we&apos;re just getting started.
             </h2>
-            <p className="mt-2 text-lg text-white/90">
-              When lockdown hit, we quickly realized our phones had become our constant companions.
-              Endless scrolling became the new normal—even a few minutes away from the feed felt
-              impossible. We knew something had to change, but no existing tool spoke to why we were
-              stuck in that loop.
+            <p className="text-tx-muted text-lg mb-10">
+              Join the movement to take back your time — one tap at a time.
             </p>
-          </div>
-        </div>
-
-        {/* Step 2 */}
-        <div className="flex flex-col md:flex-row-reverse items-center gap-6">
-          <Image
-            src="/images/apps.png"
-            alt="Tried Existing Apps Cartoon"
-            width={160}
-            height={160}
-            className="rounded-xl shadow-lg flex-shrink-0 object-contain bg-white/5 p-2"
-          />
-          <div className="flex-1">
-            <h2 className="text-2xl font-semibold text-secondary">
-              We tried existing apps
-            </h2>
-            <p className="mt-2 text-lg text-white/90">
-              From simple timers to full-blown app lockers, we tested them all—yet each one felt like
-              a band-aid solution. They would freeze our screen or count down seconds, but offered no
-              context about why we were really here. We craved a tool that didn’t just say “stop,” but
-              helped us remember what to do instead.
-            </p>
-          </div>
-        </div>
-
-        {/* Step 3 */}
-        <div className="flex flex-col md:flex-row items-center gap-6">
-          <Image
-            src="/images/idea.png"
-            alt="Idea Spark Cartoon"
-            width={160}
-            height={160}
-            className="rounded-xl shadow-lg flex-shrink-0 object-contain bg-white/5 p-2"
-          />
-          <div className="flex-1">
-            <h2 className="text-2xl font-semibold text-secondary">
-              Then came the idea
-            </h2>
-            <p className="mt-2 text-lg text-white/90">
-              One evening we asked ourselves: what if every enforced pause reminded us of our real
-              goals? Instead of a blank lock screen, we could surface tasks, habits, and motivational
-              prompts. That light-bulb moment sparked the core concept behind TimerX’s unique,
-              productivity-first approach.
-            </p>
-          </div>
-        </div>
-
-        {/* Step 4 */}
-        <div className="flex flex-col md:flex-row-reverse items-center gap-6">
-          <Image
-            src="/images/dev.png"
-            alt="Building Something Better Cartoon"
-            width={160}
-            height={160}
-            className="rounded-xl shadow-lg flex-shrink-0 object-contain bg-white/5 p-2"
-          />
-          <div className="flex-1">
-            <h2 className="text-2xl font-semibold text-secondary">
-              Building something better
-            </h2>
-            <p className="mt-2 text-lg text-white/90">
-              We sketched, prototyped, and iterated—combining code with user feedback at every step.
-              Our wait-screen became a digital nudge, surfacing your tasks and habits precisely when
-              you need it. Today, TimerX empowers you to reclaim your attention and focus on what
-              truly matters.
-            </p>
-          </div>
-        </div>
+            <Link
+              href="/download"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-black bg-tx-brand hover:opacity-90 transition-all duration-200 font-display"
+              style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
+            >
+              Download TimerX <ArrowRight size={16} />
+            </Link>
+          </motion.div>
+        </section>
       </div>
-
-      {/* CTA */}
-      <div className="relative text-center p-10 md:p-14 bg-secondary text-black">
-        <h2 className="text-3xl md:text-4xl font-bold">And we’re just getting started</h2>
-        <p className="mt-2 text-lg">Join the movement to take back your time — one tap at a time.</p>
-        <Link
-          href="/download"
-          className="inline-block mt-5 px-6 py-3 rounded-md font-medium bg-black text-secondary hover:bg-white hover:text-black transition"
-        >
-          Download TimerX
-        </Link>
-      </div>
-    </div>
-  )
+    </>
+  );
 }

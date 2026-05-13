@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\Code\\\\timerx-website\\\\timerx-website\" -Recurse -Force)",
+      "Bash(Select-Object -Property FullName)",
+      "Bash(ConvertTo-Json)",
+      "Bash(Out-String)",
+      "Skill(impeccable)",
+      "Bash(node *)",
+      "Bash(copy *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)"
+    ]
+  }
+}
