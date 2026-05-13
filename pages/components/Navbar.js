@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -15,6 +16,7 @@ const links = [
 export default function Navbar() {
   const [open,      setOpen]      = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
+  const { pathname } = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -37,7 +39,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-display font-800 text-xl tracking-tight text-tx-text hover:text-tx-brand transition-colors duration-200"
+          className="font-display font-800 text-5xl tracking-tight text-tx-text hover:text-tx-brand transition-colors duration-200"
           style={{ fontWeight: 800 }}
         >
           Timer<span className="text-tx-brand">X</span>
@@ -45,16 +47,21 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-1">
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-tx-muted hover:text-tx-text hover:bg-tx-faint transition-all duration-200"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+          {links.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`px-4 py-2 rounded-lg text-xl font-medium transition-all duration-200 hover:bg-tx-faint ${
+                    active ? 'text-tx-brand' : 'text-tx-muted hover:text-tx-text'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Desktop CTA */}
@@ -92,16 +99,21 @@ export default function Navbar() {
             }}
           >
             <div className="px-6 py-4 flex flex-col gap-1">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="px-3 py-3 rounded-lg text-base font-medium text-tx-muted hover:text-tx-text hover:bg-tx-faint transition-all duration-200"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {links.map((link) => {
+                const active = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={`px-3 py-3 rounded-lg text-base font-medium transition-all duration-200 hover:bg-tx-faint ${
+                      active ? 'text-tx-brand' : 'text-tx-muted hover:text-tx-text'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
               <Link
                 href="/download"
                 onClick={() => setOpen(false)}

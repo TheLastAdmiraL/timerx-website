@@ -200,10 +200,10 @@ export default function Home() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-display font-700 text-lg text-tx-text mb-2" style={{ fontWeight: 700 }}>
+                  <h3 className="font-display font-700 text-3xl text-tx-text mb-2" style={{ fontWeight: 700 }}>
                     {f.title}
                   </h3>
-                  <p className="text-tx-muted text-sm leading-relaxed">
+                  <p className="text-tx-muted text-xl leading-relaxed">
                     {f.desc}
                   </p>
                 </div>
@@ -292,7 +292,7 @@ export default function Home() {
                 <h3 className="font-display font-700 text-xl text-tx-text" style={{ fontWeight: 700 }}>
                   {s.title}
                 </h3>
-                <p className="text-tx-muted text-sm leading-relaxed">
+                <p className="text-tx-muted text-xl leading-relaxed">
                   {s.desc}
                 </p>
               </motion.div>
@@ -325,10 +325,10 @@ export default function Home() {
               <h3 className="font-display font-700 text-xl text-tx-text mb-3" style={{ fontWeight: 700 }}>
                 About the Accessibility permission
               </h3>
-              <p className="text-tx-muted text-sm leading-relaxed mb-4">
+              <p className="text-tx-muted text-xl leading-relaxed mb-4">
                 TimerX needs Android&apos;s Accessibility Service to detect when you open a monitored app and show overlays at the right moment. It&apos;s the only way to do this without root access.
               </p>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-2 text-xl">
                 {[
                   { ok: false, text: "We don't read your screen content, passwords, or personal data" },
                   { ok: false, text: "We don't collect or sell personal information" },
@@ -348,7 +348,7 @@ export default function Home() {
               </ul>
               <Link
                 href="/privacy-policy"
-                className="inline-flex items-center gap-1.5 mt-5 text-sm text-tx-brand hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-1.5 mt-5 text-xl text-tx-brand hover:opacity-80 transition-opacity"
               >
                 Read our full Privacy Policy <ArrowRight size={13} />
               </Link>
