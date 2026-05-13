@@ -29,7 +29,7 @@ const features = [
     title: 'Pre-open Wait Screen',
     desc: 'Before a monitored app launches, a brief pause gives your brain a moment to reconsider. 5 seconds can break a habit loop.',
     highlight: false,
-    image: null,
+    image: '/overlay-screen.gif',
   },
   {
     icon: BarChart2,
@@ -59,77 +59,84 @@ export default function Home() {
     <div className="bg-tx-bg text-tx-text">
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col md:flex-row items-center pt-24 pb-16 px-6 md:px-12 overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden">
         <HeroBackground />
 
-        {/* Left: text */}
-        <motion.div
-          className="relative z-10 flex-1 max-w-xl"
-          variants={stagger}
-          initial="hidden"
-          animate="show"
-        >
-          <motion.p variants={fadeUp} className="text-tx-brand text-sm font-semibold tracking-widest uppercase mb-4">
-            Available on Android
-          </motion.p>
-          <motion.h1
-            variants={fadeUp}
-            className="font-display font-800 text-5xl md:text-6xl lg:text-7xl leading-tight tracking-tight text-tx-text"
-            style={{ fontWeight: 800, lineHeight: '1.05' }}
-          >
-            Your time<br />
-            <span className="text-tx-brand">back.</span>
-          </motion.h1>
-          <motion.p variants={fadeUp} className="mt-6 text-tx-muted text-lg leading-relaxed max-w-md">
-            TimerX slows down the apps you can&apos;t stop opening — so the rest of your day has room to breathe.
-          </motion.p>
-          <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Link
-              href="/download"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-black bg-tx-brand hover:opacity-90 transition-all duration-200 animate-glow-pulse font-display"
-              style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
-            >
-              Download Free
-              <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="/journey"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-medium text-tx-muted hover:text-tx-text transition-all duration-200"
-              style={{ border: '1px solid oklch(0.20 0.010 195)' }}
-            >
-              Our Story
-            </Link>
-          </motion.div>
-        </motion.div>
+        {/* Constrained container — fixes the wide-screen dead-center gap */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 min-h-screen flex items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 w-full pt-28 pb-20">
 
-        {/* Right: phone mockup */}
-        <motion.div
-          className="relative z-10 flex-1 flex items-center justify-center md:justify-end mt-14 md:mt-0"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {/* Ambient glow behind phone */}
-          <div
-            className="absolute rounded-full"
-            style={{
-              width: '380px',
-              height: '380px',
-              background: 'radial-gradient(circle, rgba(6,182,212,0.18) 0%, transparent 65%)',
-              filter: 'blur(40px)',
-            }}
-          />
-          <div className="animate-float relative">
-            <Image
-              src="/new-hero-image.png"
-              alt="TimerX app interface on Android"
-              width={1130}
-              height={1536}
-              className="relative z-10 w-[280px] sm:w-[320px] md:w-[400px] lg:w-[440px] h-auto"
-              priority
-            />
+            {/* Left: text */}
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              animate="show"
+              className="flex flex-col justify-center"
+            >
+              <motion.p variants={fadeUp} className="text-tx-brand text-sm font-semibold tracking-widest uppercase mb-4">
+                Available on Android
+              </motion.p>
+              <motion.h1
+                variants={fadeUp}
+                className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-none tracking-tight text-tx-text"
+                style={{ fontWeight: 800 }}
+              >
+                Your time<br />
+                <span className="text-tx-brand">back.</span>
+              </motion.h1>
+              <motion.p variants={fadeUp} className="mt-6 text-tx-muted text-lg leading-relaxed max-w-lg">
+                TimerX slows down the apps you can&apos;t stop opening — so the rest of your day has room to breathe.
+              </motion.p>
+              <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/download"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-black bg-tx-brand hover:opacity-90 transition-all duration-200 animate-glow-pulse font-display"
+                  style={{ fontFamily: 'var(--font-display)', fontWeight: 700 }}
+                >
+                  Download Free
+                  <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href="/journey"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-medium text-tx-muted hover:text-tx-text transition-all duration-200"
+                  style={{ border: '1px solid oklch(0.20 0.010 195)' }}
+                >
+                  Our Story
+                </Link>
+              </motion.div>
+            </motion.div>
+
+            {/* Right: phone mockup */}
+            <motion.div
+              className="flex items-center justify-center md:justify-end"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Ambient glow */}
+              <div
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  width: '420px',
+                  height: '420px',
+                  background: 'radial-gradient(circle, rgba(6,182,212,0.16) 0%, transparent 65%)',
+                  filter: 'blur(50px)',
+                }}
+              />
+              <div className="animate-float relative">
+                <Image
+                  src="/new-hero-image.png"
+                  alt="TimerX app interface on Android"
+                  width={1130}
+                  height={1536}
+                  className="relative z-10 w-[280px] sm:w-[340px] md:w-[420px] lg:w-[500px] xl:w-[540px] h-auto"
+                  priority
+                />
+              </div>
+            </motion.div>
+
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ── FEATURES ── */}
@@ -202,22 +209,32 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Phone mockup for Reason Unlock */}
+              {/* App screen mockup */}
               {f.image && (
                 <div className="mt-6 flex justify-center">
                   <div
-                    className="relative rounded-3xl overflow-hidden shadow-xl"
+                    className="relative rounded-3xl overflow-hidden"
                     style={{
                       boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)',
                     }}
                   >
-                    <Image
-                      src={f.image}
-                      alt="Reason Unlock screen"
-                      width={260}
-                      height={560}
-                      className="w-[200px] sm:w-[220px] h-auto"
-                    />
+                    {f.image.endsWith('.gif') ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={f.image}
+                        alt={f.title}
+                        className="w-[200px] sm:w-[240px] h-auto"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <Image
+                        src={f.image}
+                        alt={f.title}
+                        width={260}
+                        height={560}
+                        className="w-[200px] sm:w-[220px] h-auto"
+                      />
+                    )}
                   </div>
                 </div>
               )}

@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const fadeUp = {
@@ -10,26 +8,6 @@ const fadeUp = {
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
 
 export default function Footer() {
-  const [status, setStatus] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    const res = await fetch('https://formspree.io/f/mjkwgajp', {
-      method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: data,
-    });
-    const result = await res.json();
-    if (result.ok || res.status === 200) {
-      setStatus('success');
-      form.reset();
-    } else {
-      setStatus('error');
-    }
-  };
-
   return (
     <footer
       style={{
@@ -38,67 +16,35 @@ export default function Footer() {
       }}
     >
       <motion.div
-        className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12"
+        className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12"
         variants={stagger}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
       >
         {/* Brand column */}
-        <motion.div variants={fadeUp} className="space-y-4">
+        <motion.div variants={fadeUp} className="space-y-4 max-w-sm">
           <Link href="/" className="font-display text-xl font-800 text-tx-text" style={{ fontWeight: 800 }}>
             Timer<span className="text-tx-brand">X</span>
           </Link>
-          <p className="text-tx-muted text-sm leading-relaxed max-w-xs">
+          <p className="text-tx-muted text-sm leading-relaxed">
             An Android app that helps you reclaim focus by setting limits on the apps that pull your attention.
           </p>
           <p className="text-tx-faint text-xs">
             No personal data collected. Everything stays on your phone.
           </p>
-        </motion.div>
-
-        {/* Newsletter column */}
-        <motion.div variants={fadeUp} className="space-y-4">
-          <h3 className="font-display font-600 text-tx-text text-sm uppercase tracking-widest" style={{ fontWeight: 600 }}>
-            Newsletter
-          </h3>
-          <p className="text-tx-muted text-sm leading-relaxed">
-            Tips on managing screen time, delivered occasionally. No spam.
-          </p>
-          <form onSubmit={handleSubmit} className="flex gap-2">
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="your@email.com"
-              className="flex-1 min-w-0 px-4 py-2.5 rounded-lg text-sm text-tx-text placeholder:text-tx-faint focus:outline-none transition-all"
-              style={{
-                background: 'oklch(0.13 0.008 195)',
-                border: '1px solid oklch(0.20 0.010 195)',
-              }}
-              onFocus={(e) => (e.target.style.borderColor = 'oklch(0.65 0.14 195 / 0.6)')}
-              onBlur={(e)  => (e.target.style.borderColor = 'oklch(0.20 0.010 195)')}
-            />
-            <button
-              type="submit"
-              className="flex-shrink-0 p-2.5 rounded-lg bg-tx-brand text-black hover:opacity-90 transition-opacity"
-              aria-label="Subscribe"
-            >
-              <ArrowRight size={16} />
-            </button>
-          </form>
-          {status === 'success' && (
-            <p className="text-xs text-tx-brand">Thanks for subscribing.</p>
-          )}
-          {status === 'error' && (
-            <p className="text-xs" style={{ color: 'oklch(0.72 0.18 25)' }}>
-              Something went wrong. Try again.
-            </p>
-          )}
+          <Link
+            href="https://play.google.com/store/apps/details?id=com.equinoxdev.timerx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-tx-brand hover:opacity-80 transition-opacity"
+          >
+            Download on Google Play →
+          </Link>
         </motion.div>
 
         {/* Links column */}
-        <motion.div variants={fadeUp} className="space-y-4">
+        <motion.div variants={fadeUp} className="space-y-4 md:justify-self-end">
           <h3 className="font-display font-600 text-tx-text text-sm uppercase tracking-widest" style={{ fontWeight: 600 }}>
             Links
           </h3>
