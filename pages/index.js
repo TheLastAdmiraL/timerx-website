@@ -168,7 +168,7 @@ export default function Home() {
               whileInView="show"
               viewport={{ once: true, margin: '-60px' }}
               transition={{ delay: i * 0.08 }}
-              className="group relative rounded-2xl p-6 overflow-hidden"
+              className="group relative rounded-2xl p-6 overflow-hidden flex flex-col"
               style={{
                 background: 'oklch(0.13 0.008 195)',
                 border: f.highlight
@@ -211,7 +211,7 @@ export default function Home() {
 
               {/* App screen mockup */}
               {f.image && (
-                <div className="mt-6 flex justify-center">
+                <div className="mt-6 flex-1 flex justify-center items-end">
                   <div
                     className="relative rounded-3xl overflow-hidden"
                     style={{
@@ -232,7 +232,7 @@ export default function Home() {
                         alt={f.title}
                         width={260}
                         height={560}
-                        className="w-[200px] sm:w-[220px] h-auto"
+                        className="w-[200px] sm:w-[240px] h-auto"
                       />
                     )}
                   </div>
